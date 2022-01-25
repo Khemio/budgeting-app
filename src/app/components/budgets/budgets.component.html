@@ -1,0 +1,13 @@
+<div class="container w-50 text-center d-flex justify-content-between mb-3">
+    <h1>Budgets</h1>
+    <div class="buttons d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-primary ">Create Budget</button>
+        <a href="#" class="btn btn-outline-primary d-flex align-items-center">View Expenses</a>
+    </div>
+</div>
+
+<hr class="container w-50">
+
+<div class="card-grid container w-50">
+    <app-budget *ngFor="let budget of budgets" [budget]="budget"></app-budget>
+</div>

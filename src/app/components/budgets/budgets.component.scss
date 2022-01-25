@@ -1,0 +1,11 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 1.3rem;
+    
+    app-budget:first-child {
+        grid-column: span 2;
+    }
+}

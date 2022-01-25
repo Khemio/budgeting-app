@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between">
+            <span>{{budget.category | titlecase}}</span> 
+
+            <span>
+                <span class="fs-5">{{budget.curAmount | currency}}</span> / 
+                <span class="fs-6 text-muted">{{budget.maxAmount | currency}}</span>
+            </span>
+        </h5>
+        <p><ngb-progressbar class="rounded-pill" 
+            [type]="color"
+            [value]="ratio*100"></ngb-progressbar>
+        </p>
+
+        <div *ngIf="budget.category !== 'Total'" class="d-flex justify-content-end gap-1">
+            <button type="button" class="btn btn-primary p-2">Add Expense</button>
+            <a href="#" class="btn btn-outline-primary p-2">View Expenses</a>
+        </div>
+        
+    </div>
+</div>
