@@ -1,0 +1,15 @@
+<div class="container w-50 text-center d-flex justify-content-between mb-3">
+    <h1>Expenses</h1>
+    <div class="buttons d-flex justify-content-end gap-2">
+        <button class="btn btn-primary" (click)="open()">Add Expense</button>
+        <a routerLink="/budgets" class="btn btn-outline-primary d-flex align-items-center">View Budgets</a>
+    </div>
+</div>
+
+<hr class="container w-50">
+
+<div class="card-grid container w-50">
+    <app-expense *ngFor="let expense of expenses" [expense]="expense" (deleteExpenseEvent)="deleteExpense($event)"></app-expense>
+</div>
+
+<app-search-expenses></app-search-expenses>

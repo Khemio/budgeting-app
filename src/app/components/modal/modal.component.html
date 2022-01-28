@@ -1,0 +1,30 @@
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Create Budget</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-floating mb-3">
+                <input #category type="text" class="form-control" id="floatingInput" placeholder="Category for budget">
+                <label for="floatingInput">Budget Category</label>
+            </div>
+            
+            <div class="input-group mb-3 form-floating">
+                <span class="input-group-text">$</span>
+                <input #budgetLimit type="number" class="form-control" id="budgetLimit" aria-label="Amount (to the nearest dollar)" placeholder="Set budget limit">
+                <!-- <label for="budgetLimit" class="form-label">Enter amount</label> -->
+                <span class="input-group-text">.00</span>
+            </div>
+            <div class="input-group mb-3 form-floating">
+                <span class="input-group-text">$</span>
+                <input #budgetUsed type="number" class="form-control" id="budgetUsed" aria-label="Amount (to the nearest dollar)" placeholder="(Optional) Amount used">
+                <!-- <label for="budgetLimit" class="form-label">Enter amount</label> -->
+                <span class="input-group-text">.00</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="submit(category.value, budgetLimit.value, budgetUsed.value )">Save</button>
+    </div>

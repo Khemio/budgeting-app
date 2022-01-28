@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <span>{{expense.category | titlecase}}</span> 
+        <button class="delete" title="delete budget"
+        (click)="deleteExpense(expense)">&times;</button> 
+    </div>
+    <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between">
+            <span>{{expense.title | titlecase}}</span> 
+
+            <span>
+                <span class="fs-5">{{expense.amount | currency}}</span>
+                <!-- <span class="fs-6 text-muted">{{budget.budgetLimit | currency}}</span> -->
+            </span>
+        </h5>
+
+        <div class="d-flex justify-content-end gap-1">
+            <button type="button" class="btn btn-primary p-2">Add Expense</button>
+            <a href="#" class="btn btn-outline-primary p-2">View Budget</a>
+        </div>
+        
+    </div>
+</div>

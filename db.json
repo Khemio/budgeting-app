@@ -1,0 +1,66 @@
+{
+  "budgets": [
+    {
+      "id": 1,
+      "category": "entertainment",
+      "budgetUsed": 300,
+      "budgetLimit": 1500
+    },
+    {
+      "id": 2,
+      "category": "food",
+      "budgetUsed": 500,
+      "budgetLimit": 800
+    },
+    {
+      "id": 3,
+      "category": "studies",
+      "budgetUsed": 900,
+      "budgetLimit": 1000
+    },
+    {
+      "id": 4,
+      "category": "fitness",
+      "budgetUsed": 300,
+      "budgetLimit": 900
+    },
+    {
+      "id": 5,
+      "category": "education",
+      "budgetUsed": 300,
+      "budgetLimit": 1000
+    }
+  ],
+  "expenses": [
+    {
+      "id": 0,
+      "category": "food",
+      "title": "Bacon",
+      "amount": 20
+    },
+    {
+      "id": 1,
+      "category": "fitness",
+      "title": "pants",
+      "amount": 20
+    },
+    {
+      "id": 2,
+      "category": "entertainment",
+      "title": "Hookers",
+      "amount": 300
+    },
+    {
+      "id": 3,
+      "category": "food",
+      "title": "Eggs",
+      "amount": 5
+    },
+    {
+      "id": 4,
+      "category": "study",
+      "title": "Books",
+      "amount": 100
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<div id="search-component">
+    <div class="form-floating mb-3">
+        <input #serachBox type="text" class="form-control" id="searchBox" (input)="search(serachBox.value)">
+        <label for="searchBox">Budget Search</label>
+    </div>
+
+    <div class="card-grid container w-50">
+        <app-expense *ngFor="let expense of expenses$ | async" [expense]="expense"></app-expense>
+    </div>
+</div>

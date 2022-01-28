@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Budget } from '../../budget';
 
@@ -9,6 +9,7 @@ import { Budget } from '../../budget';
 })
 export class BudgetComponent implements OnInit {
   @Input() budget!: Budget;
+  @Output() deleteBudgetEvent = new EventEmitter<Budget>();
   ratio!: number;
   color: string = '';
 
@@ -20,7 +21,7 @@ export class BudgetComponent implements OnInit {
   }
 
   setRatio(): void {
-    this.ratio = this.budget.curAmount / this.budget.maxAmount;
+    this.ratio = this.budget.budgetUsed / this.budget.budgetLimit;
   }
 
   setColor(): void {
@@ -33,6 +34,10 @@ export class BudgetComponent implements OnInit {
     else {
       this.color = 'danger';
     }
+  }
+
+  deleteBudget(budget: Budget): void {
+    this.deleteBudgetEvent.emit(budget);
   }
 
 }
