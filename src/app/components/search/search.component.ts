@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { LowerCasePipe } from '@angular/common';
 
-import { Budget } from 'src/app/budget';;
+import { Budget } from 'src/app/budget';
 import { BudgetsService } from 'src/app/services/budgets.service';
 
 @Component({
@@ -13,6 +13,7 @@ import { BudgetsService } from 'src/app/services/budgets.service';
   providers: [LowerCasePipe]
 })
 export class SearchComponent implements OnInit {
+  @Output() hideEvent = new EventEmitter<any>();
   budgets$!: Observable<Budget[]>;
   private searchTerms = new Subject<string>();
 
@@ -27,6 +28,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchBudgets() {
+    
     this.budgets$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -37,6 +39,15 @@ export class SearchComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.budgetsService.searchBudgets(this.lowercase.transform(term))),
     )
+  }
+
+  hideList(value: string): void {
+    if(value == ''){ 
+      this.hideEvent.emit(true);
+    } else {
+      this.hideEvent.emit(false);
+    }
+    
   }
 
 }

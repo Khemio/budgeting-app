@@ -3,6 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import { Expense } from 'src/app/expense';
 import { BudgetsService } from '../../services/budgets.service';
+import { UpdateService } from 'src/app/services/update.service';
 import { AddExpenseModalComponent } from '../add-expense-modal/add-expense-modal.component';
 
 
@@ -14,7 +15,9 @@ import { AddExpenseModalComponent } from '../add-expense-modal/add-expense-modal
 export class ExpensesComponent implements OnInit {
   expenses: Expense[] = [];
 
-  constructor(private budgetsService: BudgetsService, private modalService: NgbModal) { }
+  show = true;
+
+  constructor(private budgetsService: BudgetsService, private updatesService: UpdateService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getExpeses();
@@ -37,11 +40,15 @@ export class ExpensesComponent implements OnInit {
   addExpense(expense: Expense): void {
     this.budgetsService.addExpense(expense).
       subscribe(expense => {
+        this.updatesService.addedExpense(expense);
         this.expenses.push(expense);
       })
   }
 
   deleteExpense(expense: Expense): void {
+    console.log(expense);
+    this.updatesService.deletedExpense(expense);
+    
     this.expenses = this.expenses.filter(b => b.id != expense.id);
     this.budgetsService.deleteExpense(expense.id).subscribe();
   }
@@ -56,11 +63,16 @@ export class ExpensesComponent implements OnInit {
     modalRef.result.then((result: any) => {
       if (result) {
         this.addExpense(result);
+        
       }
     },
     (reason) => {
       console.log(reason);
     })
+  }
+
+  hide(show: boolean) {
+    this.show = show;
   }
 
 }

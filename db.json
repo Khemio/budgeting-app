@@ -9,7 +9,7 @@
     {
       "id": 2,
       "category": "food",
-      "budgetUsed": 500,
+      "budgetUsed": 525,
       "budgetLimit": 800
     },
     {
@@ -26,40 +26,28 @@
     },
     {
       "id": 5,
-      "category": "education",
-      "budgetUsed": 300,
-      "budgetLimit": 1000
+      "category": "uncategorized",
+      "budgetUsed": 0,
+      "budgetLimit": 0
     }
   ],
   "expenses": [
     {
-      "id": 0,
-      "category": "food",
-      "title": "Bacon",
-      "amount": 20
-    },
-    {
       "id": 1,
       "category": "fitness",
-      "title": "pants",
+      "name": "pants",
       "amount": 20
     },
     {
       "id": 2,
       "category": "entertainment",
-      "title": "Hookers",
+      "name": "Concert Tickets",
       "amount": 300
     },
     {
       "id": 3,
-      "category": "food",
-      "title": "Eggs",
-      "amount": 5
-    },
-    {
-      "id": 4,
       "category": "study",
-      "title": "Books",
+      "name": "Books",
       "amount": 100
     }
   ]

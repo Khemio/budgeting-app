@@ -20,6 +20,7 @@ export class BudgetsComponent implements OnInit {
     budgetLimit: 0
   };
 
+  show = true;
   budgets: Budget[] = [];
   closeResult = '';
 
@@ -38,12 +39,12 @@ export class BudgetsComponent implements OnInit {
     });
   }
 
-  getBudget(id: number): void {
-    this.budgetsSrvice.getBudget(id)
-      .subscribe(budget => {
-        console.log(budget);
-      })
-  }
+  // getBudget(id: number): void {
+  //   this.budgetsSrvice.getBudget(id)
+  //     .subscribe(budget => {
+  //       console.log(budget);
+  //     })
+  // }
 
   setTotal(): void {
     this.budgets.map(budget => {
@@ -54,10 +55,7 @@ export class BudgetsComponent implements OnInit {
     this.budgets.unshift(this.total);
   }
 
-  updateBudgets(budget: Budget): void {
-    // this.budgets.push(budget);
-    // this.budgets[0].budgetUsed += budget.budgetUsed;
-    // this.budgets[0].budgetLimit += budget.budgetLimit;
+  addBudget(budget: Budget): void {
     this.budgetsSrvice.addBudget(budget).
       subscribe(budget => {
         this.budgets.push(budget);
@@ -80,12 +78,16 @@ export class BudgetsComponent implements OnInit {
 
     modalRef.result.then((result: any) => {
       if (result) {
-        this.updateBudgets(result);
+        this.addBudget(result);
       }
     },
     (reason) => {
       console.log(reason);
     });
+  }
+
+  hide(show: boolean) {
+    this.show = show;
   }
 
 }

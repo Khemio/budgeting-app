@@ -12,7 +12,7 @@ import { TitleCasePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class BudgetsService {
-  private budgetsUrl = 'http://localhost:5000/budgets'
+  private budgetsUrl = 'http://localhost:5000/budgets/'
   private expensesUrl = 'http://localhost:5000/expenses'
 
   httpOptions = {
@@ -29,19 +29,19 @@ export class BudgetsService {
       catchError(this.handleError<Budget[]>('getBudgets', [])));
   }
 
-  getBudget(id: number): Observable<Budget> {
-    const url = `${this.budgetsUrl}/${id}`;
+  getBudget(category: string): Observable<Budget> {
+    const url = `${this.budgetsUrl}/${category}`;
     return this.http.get<Budget>(url)
       .pipe(
-        tap(_ => console.log(`Fetched budget id=${id}`)),
-        catchError(this.handleError<Budget>(`getBudget id=${id}`))
+        tap(_ => console.log(`Fetched budget category=${category}`)),
+        catchError(this.handleError<Budget>(`getBudget category=${category}`))
       );
   }
 
   updateBudget(budget: Budget): Observable<any> {
     return this.http.put(this.budgetsUrl, budget, this.httpOptions)
     .pipe(
-      tap(_ => console.log(`Updated Budget id=${budget.id}`)),
+      tap(_ => console.log(`Updated Budget id=${budget!.id}`)),
       catchError(this.handleError<Budget[]>('updateBudget', [])));
   }
 
@@ -105,8 +105,10 @@ export class BudgetsService {
   addExpense(expense: Expense): Observable<Expense> {
     return this.http.post<Expense>(this.expensesUrl, expense, this.httpOptions)
       .pipe(
-        tap((newExpense: Expense) => console.log(`Added Expense w/ id=${newExpense.id}`)),
-        catchError(this.handleError<Expense>('addExpense'))
+        tap((newExpense: Expense) => {
+          console.log(`Added Expense w/ id=${newExpense.id}`);
+        }),
+        catchError(this.handleError<Expense>('addExpense')),
       )
   }
 

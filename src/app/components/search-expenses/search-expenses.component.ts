@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { LowerCasePipe } from '@angular/common';
@@ -13,6 +13,7 @@ import { BudgetsService } from 'src/app/services/budgets.service';
   providers: [LowerCasePipe]
 })
 export class SearchExpensesComponent implements OnInit {
+  @Output() hideEvent = new EventEmitter<any>();
   expenses$!: Observable<Expense[]>;
   private searchTerms = new Subject<string>();
 
@@ -37,6 +38,15 @@ export class SearchExpensesComponent implements OnInit {
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.budgetsService.searchExpenses(this.lowercase.transform(term))),
     )
+  }
+
+  hideList(value: string): void {
+    if(value == ''){ 
+      this.hideEvent.emit(true);
+    } else {
+      this.hideEvent.emit(false);
+    }
+    
   }
 
 }

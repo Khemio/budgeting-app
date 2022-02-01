@@ -8,8 +8,8 @@
 
 <hr class="container w-50">
 
-<div class="card-grid container w-50">
+<app-search (hideEvent)="hide($event)"></app-search>
+
+<div class="card-grid container w-50" *ngIf="show">
     <app-budget *ngFor="let budget of budgets" [budget]="budget" (deleteBudgetEvent)="deleteBudget($event)"></app-budget>
 </div>
-
-<app-search></app-search>
