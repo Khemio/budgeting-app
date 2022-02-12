@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChange } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { LowerCasePipe } from '@angular/common';
@@ -13,6 +13,7 @@ import { BudgetsService } from 'src/app/services/budgets.service';
   providers: [LowerCasePipe]
 })
 export class SearchComponent implements OnInit {
+  @Input() searchCategory?: string;
   @Output() hideEvent = new EventEmitter<any>();
   budgets$!: Observable<Budget[]>;
   private searchTerms = new Subject<string>();
@@ -21,10 +22,19 @@ export class SearchComponent implements OnInit {
 
   search(term: string) {
     this.searchTerms.next(term);
+    this.hideList(term);
   }
 
   ngOnInit(): void {
     this.searchBudgets();
+    if (this.searchCategory) {
+      this.search(this.searchCategory!);
+
+    }
+  }
+
+  ngOnChanges(changes: SimpleChange): void {
+    this.search(this.searchCategory!);
   }
 
   searchBudgets() {

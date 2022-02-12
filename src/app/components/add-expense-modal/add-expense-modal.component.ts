@@ -12,6 +12,7 @@ import { Expense } from 'src/app/expense';
 })
 export class AddExpenseModalComponent implements OnInit {
   @Input() id!: number;
+  @Input() category!: string;
 
   constructor(public activeModal: NgbActiveModal, private lowercase: LowerCasePipe) { }
 

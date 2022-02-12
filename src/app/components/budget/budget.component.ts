@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Budget } from '../../budget';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-budget',
@@ -13,7 +15,7 @@ export class BudgetComponent implements OnInit {
   ratio!: number;
   color: string = '';
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.setRatio();
@@ -38,6 +40,23 @@ export class BudgetComponent implements OnInit {
 
   deleteBudget(budget: Budget): void {
     this.deleteBudgetEvent.emit(budget);
+  }
+
+  open() {
+    const modalRef = this.modalService.open(ModalComponent);
+    modalRef.componentInstance.category = this.budget.category;
+    // modalRef.componentInstance.newItemEvent.subscribe((newItem: any) => {
+    //   console.log(newItem);
+    // })
+
+    modalRef.result.then((result: any) => {
+      if (result) {
+        // this.addBudget(result);
+      }
+    },
+    (reason) => {
+      console.log(reason);
+    });
   }
 
 }

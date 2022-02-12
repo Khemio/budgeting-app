@@ -16,7 +16,9 @@
 
         <div class="d-flex justify-content-end gap-1">
             <button type="button" class="btn btn-primary p-2">Add Expense</button>
-            <a href="#" class="btn btn-outline-primary p-2">View Budget</a>
+            <a routerLink="/budgets"
+            [queryParams]="{category: expense.category}"
+            class="btn btn-outline-primary p-2">View Budget</a>
         </div>
         
     </div>

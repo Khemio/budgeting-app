@@ -19,36 +19,42 @@
       "budgetLimit": 1000
     },
     {
-      "id": 4,
-      "category": "fitness",
-      "budgetUsed": 300,
-      "budgetLimit": 900
-    },
-    {
       "id": 5,
       "category": "uncategorized",
-      "budgetUsed": 0,
+      "budgetUsed": 270,
       "budgetLimit": 0
     }
   ],
   "expenses": [
     {
-      "id": 1,
+      "id": 0,
       "category": "fitness",
       "name": "pants",
       "amount": 20
     },
     {
-      "id": 2,
+      "id": 1,
       "category": "entertainment",
       "name": "Concert Tickets",
       "amount": 300
     },
     {
-      "id": 3,
+      "id": 2,
       "category": "study",
       "name": "Books",
       "amount": 100
+    },
+    {
+      "id": 3,
+      "category": "sport",
+      "name": "Baseball bat",
+      "amount": 100
+    },
+    {
+      "id": 4,
+      "category": "sport",
+      "name": "Training",
+      "amount": 50
     }
   ]
 }

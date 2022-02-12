@@ -34,7 +34,6 @@ export class UpdateService {
 
         updatedBudget!.budgetUsed += expense.amount;
 
-        console.log(updatedBudget);
 
         return this.http.put(`${this.budgetsUrl}/${updatedBudget?.id}`, updatedBudget, this.httpOptions);
       }),
@@ -53,11 +52,57 @@ export class UpdateService {
 
         updatedBudget!.budgetUsed -= updatedBudget!.budgetUsed > expense.amount ? expense.amount : 0;
 
-        console.log(updatedBudget);
 
         return this.http.put(`${this.budgetsUrl}/${updatedBudget?.id}`, updatedBudget, this.httpOptions);
       }),
       tap(_ => console.log(`Updated Budget id=${updatedBudget!.category}`)),
+      catchError(this.handleError<Budget[]>('updateBudget', [])))
+      .subscribe();
+  }
+
+  addedBudget(budget: Budget, uncategorizedBudget: Budget): any {
+    let movedExpenses: Expense[] | undefined;
+    // let uncategorizedBudget: Budget; 
+
+    return this.http.get<Expense[]>(this.expensesUrl).pipe(
+      mergeMap((expenses: Expense[]) => {
+        movedExpenses = expenses.filter(expense => expense.category === budget.category);
+
+        movedExpenses.forEach(expense => {
+          budget.budgetUsed += expense.amount;
+          uncategorizedBudget.budgetUsed -= expense.amount;
+          })
+
+        console.log(movedExpenses);
+        
+        this.http.put(`${this.budgetsUrl}/${uncategorizedBudget?.id}`, uncategorizedBudget, this.httpOptions).subscribe();
+        return this.http.put(`${this.budgetsUrl}/${budget?.id}`, budget, this.httpOptions);
+      }),
+      tap(_ => console.log(`Updated Budget id=${budget!.category}`)),
+      catchError(this.handleError<Budget[]>('updateBudget', [])))
+      .subscribe();
+  }
+
+
+  deletedBudget(budget: Budget, uncategorizedBudget: Budget): any {
+    let movedExpenses: Expense[] | undefined;
+    // let uncategorizedBudget: Budget; 
+
+    return this.http.get<Expense[]>(this.expensesUrl).pipe(
+      mergeMap((expenses: Expense[]) => {
+        movedExpenses = expenses.filter(expense => expense.category === budget.category);
+
+        movedExpenses.forEach(expense => {
+          // budget.budgetUsed += expense.amount;
+          uncategorizedBudget.budgetUsed += expense.amount;
+          })
+
+        // console.log(movedExpenses);
+        
+        return this.http.put(`${this.budgetsUrl}/${uncategorizedBudget?.id}`, uncategorizedBudget, this.httpOptions);
+        // return this.http.put(`${this.budgetsUrl}/${budget?.id}`, budget, this.httpOptions);
+      }),
+      tap(_ => console.log(`Updated Budget id=${budget!.category}`)),
       catchError(this.handleError<Budget[]>('updateBudget', [])))
       .subscribe();
   }

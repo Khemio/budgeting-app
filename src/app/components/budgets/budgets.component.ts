@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'; //Modal
+import { ActivatedRoute } from '@angular/router';
 
 import { Budget } from '../../budget';
 import { BudgetsService } from '../../services/budgets.service';
+import { UpdateService } from 'src/app/services/update.service';
 import { ModalComponent } from '../modal/modal.component';
 
 
@@ -13,6 +15,9 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./budgets.component.scss']
 })
 export class BudgetsComponent implements OnInit {
+  
+
+
   total: Budget = {
     id: 0,
     category: 'Total',
@@ -23,24 +28,50 @@ export class BudgetsComponent implements OnInit {
   show = true;
   budgets: Budget[] = [];
   closeResult = '';
+  category: string = '';
 
 
-  constructor(private budgetsSrvice: BudgetsService, private modalService: NgbModal) { }
+
+  constructor(private budgetsService: BudgetsService, 
+    private updateService: UpdateService, 
+    private modalService: NgbModal,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getBudgets();
+    
   }
 
   getBudgets(): void {
-    this.budgetsSrvice.getBudgets()
+    this.budgetsService.getBudgets()
     .subscribe(budgets => {
       this.budgets = budgets;
       this.setTotal();
+
+      this.route.queryParams
+        .subscribe(params => {
+          if (params['category']) {
+            
+            // console.log(this.category)
+            // console.log(this.budgets)
+            
+            if(!budgets.find(budget => budget.category === params['category'])) {
+              this.category = 'uncategorized'
+              console.log(this.category);
+            } else {
+              this.category = params['category'];
+              console.log(this.category);
+  
+            }
+          }
+      
+        }
+      );
     });
   }
 
   // getBudget(id: number): void {
-  //   this.budgetsSrvice.getBudget(id)
+  //   this.budgetsService.getBudget(id)
   //     .subscribe(budget => {
   //       console.log(budget);
   //     })
@@ -56,8 +87,11 @@ export class BudgetsComponent implements OnInit {
   }
 
   addBudget(budget: Budget): void {
-    this.budgetsSrvice.addBudget(budget).
+    const uncategorizedBudget: Budget | undefined = this.budgets.find(budget => budget.category === 'uncategorized')
+    // this.updateService.addedBudget(budget, uncategorizedBudget!)
+    this.budgetsService.addBudget(budget).
       subscribe(budget => {
+        this.updateService.addedBudget(budget, uncategorizedBudget!)
         this.budgets.push(budget);
         this.budgets[0].budgetUsed += budget.budgetUsed;
         this.budgets[0].budgetLimit += budget.budgetLimit;
@@ -65,8 +99,10 @@ export class BudgetsComponent implements OnInit {
   }
 
   deleteBudget(budget: Budget): void {
+    const uncategorizedBudget: Budget | undefined = this.budgets.find(budget => budget.category === 'uncategorized')
+    this.updateService.deletedBudget(budget, uncategorizedBudget!)
     this.budgets = this.budgets.filter(b => b.id != budget.id);
-    this.budgetsSrvice.deleteBudget(budget.id).subscribe();
+    this.budgetsService.deleteBudget(budget.id).subscribe();
   }
 
   open() {
@@ -89,5 +125,7 @@ export class BudgetsComponent implements OnInit {
   hide(show: boolean) {
     this.show = show;
   }
+
+
 
 }
