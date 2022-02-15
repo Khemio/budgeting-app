@@ -12,12 +12,14 @@ import { Expense } from 'src/app/expense';
 })
 export class AddExpenseModalComponent implements OnInit {
   @Input() id!: number;
-  @Input() category!: string;
+  @Input() refCategory!: string;
 
   constructor(public activeModal: NgbActiveModal, private lowercase: LowerCasePipe) { }
 
   ngOnInit(): void {
+    console.log(this.refCategory)
   }
+
 
   submit(category: string, name: string, amount: any) {
     const newExpense: Expense = {

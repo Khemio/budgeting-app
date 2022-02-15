@@ -3,7 +3,7 @@
     {
       "id": 1,
       "category": "entertainment",
-      "budgetUsed": 300,
+      "budgetUsed": 435,
       "budgetLimit": 1500
     },
     {
@@ -21,8 +21,20 @@
     {
       "id": 5,
       "category": "uncategorized",
-      "budgetUsed": 270,
+      "budgetUsed": 100,
       "budgetLimit": 0
+    },
+    {
+      "category": "fitness",
+      "budgetUsed": 20,
+      "budgetLimit": 1000,
+      "id": 6
+    },
+    {
+      "category": "sport",
+      "budgetUsed": 150,
+      "budgetLimit": 1000,
+      "id": 7
     }
   ],
   "expenses": [
@@ -55,6 +67,24 @@
       "category": "sport",
       "name": "Training",
       "amount": 50
+    },
+    {
+      "category": "entertainment",
+      "name": "Cinema",
+      "amount": 15,
+      "id": 5
+    },
+    {
+      "category": "entertainment",
+      "name": "Netflix",
+      "amount": 20,
+      "id": 6
+    },
+    {
+      "category": "entertainment",
+      "name": "Bar crawl",
+      "amount": 100,
+      "id": 7
     }
   ]
 }

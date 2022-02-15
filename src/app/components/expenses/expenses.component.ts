@@ -23,7 +23,7 @@ export class ExpensesComponent implements OnInit {
   show = true;
 
   constructor(private budgetsService: BudgetsService,
-    private updatesService: UpdateService, 
+    private updateService: UpdateService, 
     private modalService: NgbModal,
     private route: ActivatedRoute) { }
 
@@ -95,14 +95,26 @@ export class ExpensesComponent implements OnInit {
   addExpense(expense: Expense): void {
     this.budgetsService.addExpense(expense).
       subscribe(expense => {
-        this.updatesService.addedExpense(expense);
+        this.updateService.addedExpense(expense);
         this.expenses.push(expense);
+      })
+  }
+
+  addBudget(budget: Budget) {
+    const uncategorizedBudget: Budget | undefined = this.budgets.find(budget => budget.category === 'uncategorized')
+    // this.updateService.addedBudget(budget, uncategorizedBudget!)
+    this.budgetsService.addBudget(budget).
+      subscribe(budget => {
+        this.updateService.addedBudget(budget, uncategorizedBudget!)
+        this.budgets.push(budget);
+        this.budgets[0].budgetUsed += budget.budgetUsed;
+        this.budgets[0].budgetLimit += budget.budgetLimit;
       })
   }
 
   deleteExpense(expense: Expense): void {
     console.log(expense);
-    this.updatesService.deletedExpense(expense);
+    this.updateService.deletedExpense(expense);
     
     this.expenses = this.expenses.filter(b => b.id != expense.id);
     this.budgetsService.deleteExpense(expense.id).subscribe();
@@ -117,7 +129,7 @@ export class ExpensesComponent implements OnInit {
 
     modalRef.result.then((result: any) => {
       if (result) {
-        this.addExpense(result);
+        // this.addExpense(result)
         
       }
     },

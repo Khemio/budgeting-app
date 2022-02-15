@@ -7,7 +7,11 @@
 <div class="modal-body">
     <form>
         <div class="form-floating mb-3">
-            <input #category type="text" class="form-control" id="floatingInput" placeholder="Category for budget">
+            <input #category type="text" 
+            class="form-control" 
+            [value]="refCategory"
+            id="floatingInput" 
+            placeholder="Category of the expense">
             <label for="floatingInput">Expense Category</label>
         </div>
         

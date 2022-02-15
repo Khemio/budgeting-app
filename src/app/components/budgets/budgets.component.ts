@@ -6,6 +6,7 @@ import { Budget } from '../../budget';
 import { BudgetsService } from '../../services/budgets.service';
 import { UpdateService } from 'src/app/services/update.service';
 import { ModalComponent } from '../modal/modal.component';
+import { Expense } from 'src/app/expense';
 
 
 // Budgets
@@ -103,6 +104,16 @@ export class BudgetsComponent implements OnInit {
     this.updateService.deletedBudget(budget, uncategorizedBudget!)
     this.budgets = this.budgets.filter(b => b.id != budget.id);
     this.budgetsService.deleteBudget(budget.id).subscribe();
+  }
+
+  addExpense(expense: Expense): void {
+    this.budgetsService.addExpense(expense).
+      subscribe(expense => {
+        console.log(expense);
+        this.updateService.addedExpense(expense);
+        this.budgets.find(budget => budget.category === expense.category)!
+        .budgetUsed += expense.amount;
+      })
   }
 
   open() {

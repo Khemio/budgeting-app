@@ -12,6 +12,7 @@ import { Budget } from '../../budget';
 })
 export class ModalComponent implements OnInit {
   @Input() id!: number;
+  @Input() refCategory!: string;
   // @Output() newItemEvent = new EventEmitter ();
 
   constructor(public activeModal: NgbActiveModal, private lowercase: LowerCasePipe) { }

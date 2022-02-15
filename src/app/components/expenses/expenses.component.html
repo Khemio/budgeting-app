@@ -12,5 +12,7 @@
 <!-- <app-search-expenses [searchArray]="categoryArray" (hideEvent)="hide($event)"></app-search-expenses> -->
 
 <div class="card-grid container w-50" *ngIf="show">
-    <app-expense *ngFor="let expense of expenses" [expense]="expense" (deleteExpenseEvent)="deleteExpense($event)"></app-expense>
+    <app-expense *ngFor="let expense of expenses" [expense]="expense" 
+    (deleteExpenseEvent)="deleteExpense($event)"
+    (addBudgetEvent)="addBudget($event)"></app-expense>
 </div>

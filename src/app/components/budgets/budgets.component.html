@@ -11,5 +11,7 @@
 <app-search [searchCategory]="category" (hideEvent)="hide($event)"></app-search>
 
 <div class="card-grid container w-50" *ngIf="show">
-    <app-budget *ngFor="let budget of budgets" [budget]="budget" (deleteBudgetEvent)="deleteBudget($event)"></app-budget>
+    <app-budget *ngFor="let budget of budgets" [budget]="budget"
+        (deleteBudgetEvent)="deleteBudget($event)"
+        (addExpenseEvent)="addExpense($event)"></app-budget>
 </div>
