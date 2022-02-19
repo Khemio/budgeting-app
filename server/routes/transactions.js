@@ -4,7 +4,7 @@ import { getBudgets, addBudget, deleteBudget, updateBudget } from '../controller
 
 const router = express.Router();
 
-router.route('/').get((req, res) => { res.send('Hello from Express!')});
+//router.route('/').get((req, res) => { res.send('Hello from Express!')});
 
 
 router.route('/expenses')
