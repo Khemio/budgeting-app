@@ -1,7 +1,6 @@
 {
     "/api": {
-        "target": "http://localhost:5000",
+        "target": "https://app-budgets.herokuapp.com",
         "secure": false,
-        "logLevel": "info"
     }
 }
