@@ -3,6 +3,8 @@ import { config } from 'dotenv';
 import colors from 'colors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser'
+import cors from 'cors';
+
 
 import { connectDB } from './config/db.js';
 
@@ -14,6 +16,8 @@ connectDB();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(cors());
 
 app.use(express.json());
 
