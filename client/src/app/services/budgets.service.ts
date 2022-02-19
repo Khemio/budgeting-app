@@ -9,11 +9,11 @@ import { TitleCasePipe } from '@angular/common';
 // import { BUDGETS } from 'src/app/mock-budgets';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BudgetsService {
-  private budgetsUrl = 'http://localhost:5000/budgets/'
-  private expensesUrl = 'http://localhost:5000/expenses'
+  private budgetsUrl = '/api/v1/budgets'
+  private expensesUrl = '/api/v1/expenses'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -41,19 +41,19 @@ export class BudgetsService {
   updateBudget(budget: Budget): Observable<any> {
     return this.http.put(this.budgetsUrl, budget, this.httpOptions)
     .pipe(
-      tap(_ => console.log(`Updated Budget id=${budget!.id}`)),
+      tap(_ => console.log(`Updated Budget id=${budget!._id}`)),
       catchError(this.handleError<Budget[]>('updateBudget', [])));
   }
 
   addBudget(budget: Budget): Observable<Budget> {
     return this.http.post<Budget>(this.budgetsUrl, budget, this.httpOptions)
       .pipe(
-        tap((newBudget: Budget) => console.log(`Added Budget w/ id=${newBudget.id}`)),
+        tap((newBudget: Budget) => console.log(`Added Budget w/ id=${newBudget._id}`)),
         catchError(this.handleError<Budget>('addBudget'))
       )
   }
 
-  deleteBudget(id: number): Observable<Budget> {
+  deleteBudget(id: string): Observable<Budget> {
     const url = `${this.budgetsUrl}/${id}`;
 
     return this.http.delete<Budget>(url, this.httpOptions)
@@ -98,7 +98,7 @@ export class BudgetsService {
   updateExpense(expense: Expense): Observable<any> {
     return this.http.put(this.expensesUrl, expense, this.httpOptions)
     .pipe(
-      tap(_ => console.log(`Updated Budget id=${expense.id}`)),
+      tap(_ => console.log(`Updated Budget id=${expense._id}`)),
       catchError(this.handleError<Expense[]>('updateExpense', [])));
   }
 
@@ -106,13 +106,13 @@ export class BudgetsService {
     return this.http.post<Expense>(this.expensesUrl, expense, this.httpOptions)
       .pipe(
         tap((newExpense: Expense) => {
-          console.log(`Added Expense w/ id=${newExpense.id}`);
+          console.log(`Added Expense w/ id=${newExpense._id}`);
         }),
         catchError(this.handleError<Expense>('addExpense')),
       )
   }
 
-  deleteExpense(id: number): Observable<Expense> {
+  deleteExpense(id: string): Observable<Expense> {
     const url = `${this.expensesUrl}/${id}`;
 
     return this.http.delete<Expense>(url, this.httpOptions)

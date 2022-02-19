@@ -37,6 +37,7 @@ export class ExpensesComponent implements OnInit {
     .subscribe(expenses => {
       this.expenses = expenses;
       // this.getBudgets()
+      console.log(this.expenses)
 
       this.budgetsService.getBudgets()
     .subscribe(budgets => {
@@ -93,8 +94,10 @@ export class ExpensesComponent implements OnInit {
   }
 
   addExpense(expense: Expense): void {
+    console.log('triggered');
     this.budgetsService.addExpense(expense).
       subscribe(expense => {
+        console.log(expense)
         this.updateService.addedExpense(expense);
         this.expenses.push(expense);
       })
@@ -108,16 +111,15 @@ export class ExpensesComponent implements OnInit {
         this.updateService.addedBudget(budget, uncategorizedBudget!)
         this.budgets.push(budget);
         this.budgets[0].budgetUsed += budget.budgetUsed;
-        this.budgets[0].budgetLimit += budget.budgetLimit;
+        this.budgets[0].budgetLimit! += budget.budgetLimit!;
       })
   }
 
   deleteExpense(expense: Expense): void {
-    console.log(expense);
     this.updateService.deletedExpense(expense);
     
-    this.expenses = this.expenses.filter(b => b.id != expense.id);
-    this.budgetsService.deleteExpense(expense.id).subscribe();
+    this.expenses = this.expenses.filter(b => b._id != expense._id);
+    this.budgetsService.deleteExpense(expense._id!).subscribe();
   }
 
   open() {
@@ -129,8 +131,7 @@ export class ExpensesComponent implements OnInit {
 
     modalRef.result.then((result: any) => {
       if (result) {
-        // this.addExpense(result)
-        
+        this.addExpense(result)
       }
     },
     (reason) => {

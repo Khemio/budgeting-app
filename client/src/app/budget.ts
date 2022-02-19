@@ -1,6 +1,7 @@
 export interface Budget {
-    id: number,
+    _id?: string,
     category: string,
     budgetUsed: number,
-    budgetLimit: number
+    budgetLimit?: number,
+    createdAt?: Date
 }

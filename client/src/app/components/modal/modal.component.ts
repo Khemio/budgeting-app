@@ -11,7 +11,7 @@ import { Budget } from '../../budget';
   providers: [ LowerCasePipe ]
 })
 export class ModalComponent implements OnInit {
-  @Input() id!: number;
+  @Input() id!: string;
   @Input() refCategory!: string;
   // @Output() newItemEvent = new EventEmitter ();
 
@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit {
 
   submit(category: string, budgetLimit: any, budgetUsed: any = 0) {
     const newBudget: Budget = {
-      id: this.id, 
+      // id: this.id, 
       category: this.lowercase.transform(category),
       budgetUsed: Number(budgetUsed),  
       budgetLimit: Number(budgetLimit)}
