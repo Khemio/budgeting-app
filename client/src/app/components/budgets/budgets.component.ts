@@ -20,7 +20,6 @@ export class BudgetsComponent implements OnInit {
 
 
   total: Budget = {
-    id: 0,
     category: 'Total',
     budgetUsed: 0,
     budgetLimit: 0
@@ -81,7 +80,7 @@ export class BudgetsComponent implements OnInit {
   setTotal(): void {
     this.budgets.map(budget => {
       this.total.budgetUsed += budget.budgetUsed;
-      this.total.budgetLimit += budget.budgetLimit;
+      this.total.budgetLimit! += budget.budgetLimit!;
     })
 
     this.budgets.unshift(this.total);
@@ -95,15 +94,15 @@ export class BudgetsComponent implements OnInit {
         this.updateService.addedBudget(budget, uncategorizedBudget!)
         this.budgets.push(budget);
         this.budgets[0].budgetUsed += budget.budgetUsed;
-        this.budgets[0].budgetLimit += budget.budgetLimit;
+        this.budgets[0].budgetLimit! += budget.budgetLimit!;
       })
   }
 
   deleteBudget(budget: Budget): void {
     const uncategorizedBudget: Budget | undefined = this.budgets.find(budget => budget.category === 'uncategorized')
     this.updateService.deletedBudget(budget, uncategorizedBudget!)
-    this.budgets = this.budgets.filter(b => b.id != budget.id);
-    this.budgetsService.deleteBudget(budget.id).subscribe();
+    this.budgets = this.budgets.filter(b => b._id != budget._id);
+    this.budgetsService.deleteBudget(budget._id!).subscribe();
   }
 
   addExpense(expense: Expense): void {

@@ -25,7 +25,7 @@ export class BudgetComponent implements OnInit {
   }
 
   setRatio(): void {
-    this.ratio = this.budget.budgetUsed / this.budget.budgetLimit;
+    this.ratio = this.budget.budgetUsed / this.budget.budgetLimit!;
   }
 
   setColor(): void {

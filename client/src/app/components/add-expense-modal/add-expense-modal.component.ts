@@ -11,19 +11,19 @@ import { Expense } from 'src/app/expense';
   providers: [ LowerCasePipe ]
 })
 export class AddExpenseModalComponent implements OnInit {
-  @Input() id!: number;
+  @Input() id!: string;
   @Input() refCategory!: string;
 
   constructor(public activeModal: NgbActiveModal, private lowercase: LowerCasePipe) { }
 
   ngOnInit(): void {
-    console.log(this.refCategory)
+    // console.log(this.refCategory)
   }
 
 
   submit(category: string, name: string, amount: any) {
     const newExpense: Expense = {
-      id: this.id, 
+      // id: this.id, 
       category: this.lowercase.transform(category),
       name: name,  
       amount: Number(amount)}

@@ -13,6 +13,7 @@ import { ExpensesComponent } from './components/expenses/expenses.component';
 import { ExpenseComponent } from './components/expense/expense.component';
 import { SearchExpensesComponent } from './components/search-expenses/search-expenses.component';
 import { AddExpenseModalComponent } from './components/add-expense-modal/add-expense-modal.component';
+import { LowerCasePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AddExpenseModalComponent } from './components/add-expense-modal/add-exp
     NgbModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [LowerCasePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
