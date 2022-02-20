@@ -15,8 +15,8 @@ export class UpdateService {
   budgets: Budget[] = [];
   expenses: Expense[] = [];
 
-  private budgetsUrl = '/api/v1/budgets'
-  private expensesUrl = '/api/v1/expenses'
+  private budgetsUrl = 'api/v1/budgets'
+  private expensesUrl = 'api/v1/expenses'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
