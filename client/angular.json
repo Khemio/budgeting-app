@@ -33,7 +33,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": ["node ./copy-to-dist.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
